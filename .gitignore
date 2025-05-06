@@ -1,0 +1,27 @@
+# Build outputs
+bin/
+obj/
+out/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.log
+*.tmp
+*.cache
+*.pdb
+*.dbmdl
+*up2date
+*.vsidx
+
+# Rider
+.idea/
+
+# Others
+*.bak
+*.swp
+*.old
+
+# VSCode
+.vscode/
