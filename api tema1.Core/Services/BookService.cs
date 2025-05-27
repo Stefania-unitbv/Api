@@ -15,9 +15,15 @@ namespace api_tema1.Core.Services
             _bookRepository = bookRepository;
         }
 
-        public async Task<IEnumerable<BookDto>> GetAllBooksWithReviewsAsync()
+        public async Task<IEnumerable<BookDto>> GetAllBooksWithReviewsAsync(
+     string author = null,
+     int? yearFrom = null,
+     int? yearTo = null,
+     int page = 1,
+     int pageSize = 10,
+     string sortBy = "title")
         {
-            var books = await _bookRepository.GetAllBooksWithReviewsAsync();
+            var books = await _bookRepository.GetAllBooksWithReviewsAsync(author, yearFrom, yearTo, page, pageSize, sortBy);
 
             // Map to DTOs
             return books.Select(b => new BookDto
@@ -37,7 +43,6 @@ namespace api_tema1.Core.Services
                 }).ToList() ?? new List<ReviewDto>()
             }).ToList();
         }
-
         public async Task<BookDto> GetBookWithReviewsAsync(int id)
         {
             var book = await _bookRepository.GetBookWithReviewsAsync(id);
@@ -63,5 +68,26 @@ namespace api_tema1.Core.Services
                 }).ToList() ?? new List<ReviewDto>()
             };
         }
+        //public async Task<BookDto> UpdateBookAsync(int id, BookUpdateDto bookUpdate)
+        //{
+        //    var book = await _bookRepository.UpdateBookAsync(id, bookUpdate);
+
+        //    return new BookDto
+        //    {
+        //        Id = book.Id,
+        //        Title = book.Title,
+        //        Author = book.Author,
+        //        Year = book.Year,
+        //        ISBN = book.ISBN,
+        //        Reviews = book.Reviews?.Select(r => new ReviewDto
+        //        {
+        //            Id = r.Id,
+        //            ReaderName = r.ReaderName,
+        //            Rating = r.Rating,
+        //            Comment = r.Comment,
+        //            ReviewDate = r.ReviewDate
+        //        }).ToList() ?? new List<ReviewDto>()
+        //    };
+        //}
     }
 }

@@ -18,21 +18,36 @@ namespace api_tema1.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookDto>>> GetBooks()
+        [HttpGet]
+        [HttpGet]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<BookDto>>> GetBooks(
+    [FromQuery] string author = null,
+    [FromQuery] int? yearFrom = null,
+    [FromQuery] int? yearTo = null,
+    [FromQuery] int page = 1,
+    [FromQuery] int pageSize = 10,
+    [FromQuery] string sortBy = "title")
         {
-            var books = await _bookService.GetAllBooksWithReviewsAsync();
+            if (page < 1) page = 1;
+            if (pageSize < 1 || pageSize > 100) pageSize = 10;
+
+            var validSortOptions = new[] { "title", "author", "year", "id" };
+            if (!validSortOptions.Contains(sortBy.ToLower()))
+                sortBy = "title";
+
+            var books = await _bookService.GetAllBooksWithReviewsAsync(author, yearFrom, yearTo, page, pageSize, sortBy);
             return Ok(books);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<BookDto>> GetBook(int id)
-        {
-            var book = await _bookService.GetBookWithReviewsAsync(id);
+      //  [HttpPut("{id}")]
+        //public async Task<ActionResult<BookDto>> UpdateBook(int id, [FromBody] BookUpdateDto bookUpdate)
+        //{
+        //    if (bookUpdate == null)
+        //        return BadRequest("Book data is required");
 
-            if (book == null)
-                return NotFound();
-
-            return Ok(book);
-        }
+        //    var updatedBook = await _bookService.UpdateBookAsync(id, bookUpdate);
+        //    return Ok(updatedBook);
+        //}
     }
 }
