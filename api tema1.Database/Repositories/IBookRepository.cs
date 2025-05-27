@@ -14,7 +14,6 @@ namespace api_tema1.Database.Repositories
             int pageSize = 10,
             string sortBy = "title");
         Task<Book> GetBookWithReviewsAsync(int id);
-        // Comentez momentan PUT până se rezolvă problema
-        // Task<Book> UpdateBookAsync(int id, BookUpdateDto bookUpdate);
+        Task<Book> UpdateBookAsync(int id, BookUpdateDto bookUpdate);
     }
 }

@@ -14,6 +14,6 @@ namespace api_tema1.Core.Services
             int pageSize = 10,
             string sortBy = "title");
         Task<BookDto> GetBookWithReviewsAsync(int id);
-       // Task<BookDto> UpdateBookAsync(int id, BookUpdateDto bookUpdate);
+        Task<BookDto> UpdateBookAsync(int id, BookUpdateDto bookUpdate);
     }
 }
