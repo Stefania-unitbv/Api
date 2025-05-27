@@ -30,6 +30,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Adaugã middleware-ul de tratare a erorilor
+app.UseMiddleware<api_tema1.GlobalExceptionMiddleware>();
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
